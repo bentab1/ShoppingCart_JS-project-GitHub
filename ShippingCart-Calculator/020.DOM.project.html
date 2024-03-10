@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM project</title>
+
+    <style>
+      .body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .subscribe-button {
+        border: none;
+        color: white;
+        background: black;
+        border-radius: 20px;
+        height: 25px;
+        width: 80px;
+        margin-left: 30px;
+        cursor: pointer;
+        margin-bottom: 30px;
+      }
+
+      .subscribe-button:hover {
+        background-color: rgb(243, 167, 74);
+      }
+      /* Note to get the button appearance changed whenever we click on it we have to use the attribute called classList */
+      /* classList itselt is an object. so let go to our javascript and add classList to our subscription function code */
+
+      /* Note if you want to override a style , you will put the second style bellow the one you want override */
+      .body-body {
+        margin-left: 100px;
+        margin-top: 40px;
+      }
+
+      .isSubscribed {
+        background-color: rgb(214, 212, 212);
+        color: black;
+      }
+
+      .validate-cost {
+        color: red;
+      }
+
+      .amazon {
+        font-size: px;
+      }
+
+      .calculate-button {
+        border-radius: 5px;
+        background-color: rgb(81, 235, 81);
+        border: none;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .calculate-button:hover {
+        color: blueviolet;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="body-body">
+      <p>YouTube Subscribe Button</p>
+
+      <button
+        onclick="
+        subscription()
+     "
+        class="js-button-sub subscribe-button"
+      >
+        Subscribe
+      </button>
+
+      <p class="amazon">Amazon Shipping Calculator</p>
+
+      <p>Orders more than $40 = free shipping</p>
+      <p>Orders less then $40 = $10 shipping cost</p>
+      <input
+        placeholder="Cost of order"
+        class="js-input-cost"
+        onkeydown="
+           
+        handleCostKeyDown(event)
+      
+       "
+      />
+      <button
+        onclick="
+      
+         calculateTotal()
+         
+       "
+        class="calculate-button"
+      >
+        Calculate
+      </button>
+      <p class="js-total-cost"></p>
+      <p class="js-validate-cost validate-cost"></p>
+    </div>
+    <script>
+      function handleCostKeyDown(event) {
+        if (event.key === "Enter") {
+          calculateTotal();
+        }
+      }
+
+      function calculateTotal() {
+        const inputElement = document.querySelector(".js-input-cost");
+        let cost = inputElement.value;
+        cost = Number(cost);
+        let validateCost = "";
+
+        if (cost === 0) {
+          validateCost = "invalid cost input";
+          console.log(validateCost);
+        } else if (cost < 40) {
+          cost = cost + 10;
+          console.log(cost);
+        }
+
+        document.querySelector(
+          ".js-validate-cost"
+        ).innerHTML = `${validateCost}`;
+
+        document.querySelector(".js-total-cost").innerHTML = `$${cost}`;
+      }
+      function subscription() {
+        const buttonElement = document.querySelector(".js-button-sub");
+        if (buttonElement.innerText === "Subscribe") {
+          buttonElement.innerHTML = "Subscribed";
+          buttonElement.classList.add("isSubscribed");
+        } else {
+          buttonElement.innerHTML = "Subscribe";
+          buttonElement.classList.remove("isSubscribed");
+        }
+      }
+    </script>
+  </body>
+</html>
